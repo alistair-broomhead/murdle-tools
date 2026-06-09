@@ -58,9 +58,9 @@
                 let output = document.getElementById("decoder-output");
 
                 input.addEventListener("input", function(){
-                    output.innerHTML = makeTable(input.innerText);
+                    output.innerHTML = makeTable(input.value);
                 });
-                output.innerHTML = makeTable(input.innerText);
+                output.innerHTML = makeTable(input.value);
             });
         </script>
     </body>
