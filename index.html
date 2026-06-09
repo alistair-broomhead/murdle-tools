@@ -1,0 +1,67 @@
+<html>
+    <head><title>Murdle Tools</title></head>
+    <body>
+        <div id="decoder">
+            <h1>Decoder</h1>
+            <div>
+                <label for="decoder-input">Cypher text:</label>
+                <textarea id="decoder-input">NZBLI SLMVB DZMGVW GL DRM ZM ZITFNVMG.</textarea>
+            </div>
+            <div>
+                <div>Output text:</div>
+                <div id="decoder-output"></div>
+            </div>
+        </div>
+        <script>
+            let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            let alphabet_lookup = Object.fromEntries(Array.from(alphabet).map(c => [c, alphabet.indexOf(c)]));
+            let alphabet_reverse_lookup = Object.fromEntries(Array.from(alphabet).map(c => [alphabet.indexOf(c), c]));
+            
+            function shift_char(character, by){
+                var code = alphabet_lookup[character];
+
+                if (code === undefined) 
+                    return character;
+
+                code = (code + by) % 26;
+
+                return alphabet_reverse_lookup[code];
+            };
+            function dc_shift_char(character, by){
+                let code = alphabet_lookup[character];
+
+                if (code === undefined) 
+                    return character;
+
+                let new_code = (50 - code - by) %26;
+
+                return alphabet_reverse_lookup[new_code];
+            };
+
+            function shift_string(string, by, is_dc){
+                var output = ""
+                let func = is_dc? dc_shift_char : shift_char;
+                Array.from(string).map(character => func(character, by)).forEach(char => output += char);
+                return output;
+            };
+
+            function makeTable(string){
+                output = "<table>\n<tr><th>Shift</th><th>Caesar</th><th>Detective</th></tr>";
+                var rows = Array(26).map(i => [alphabet_reverse_lookup[i], shift_string(string, i, false), shift_string(string, i, true)])
+                for(let i = 0; i < 26; i++){
+                    output += "\n<tr><td>" + alphabet_reverse_lookup[i] + "</td><td>" + shift_string(string, i, false) + "</td><td>" + shift_string(string, i, true) + "</td></tr>";
+                }
+                return output + "</table>"
+            };
+            window.addEventListener('load', function(info) {
+                let input = document.getElementById("decoder-input");
+                let output = document.getElementById("decoder-output");
+
+                input.addEventListener("input", function(){
+                    output.innerHTML = makeTable(input.innerText);
+                });
+                output.innerHTML = makeTable(input.innerText);
+            });
+        </script>
+    </body>
+</html>
