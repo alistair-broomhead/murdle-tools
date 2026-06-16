@@ -1,14 +1,47 @@
 <html>
-    <head><title>Murdle Tools</title></head>
+    <head>
+        <title>Murdle Tools</title>
+        <style type="text/css">
+            body {
+                font-family: "Arial", sans-serif;
+            }
+            #decoder {
+                #decoder-input-area {
+                    display: flex;
+                    label {
+                        width: 20rem;
+                    }
+                    #decoder-input {            
+                        flex-basis: max-content;
+                        resize: none;
+                        width: stretch;
+                        wrap: off;
+                        overflow: auto;
+                    }
+                }
+                #decoder-output-area {
+                    #decoder-output table {
+                        outline-style: auto;
+                        outline-width: thick;
+
+                        th, td {
+                            outline-width: thin;
+                            outline-style: solid;
+                        }
+                    }
+                }
+            }
+        </style>
+    </head>
     <body>
         <div id="decoder">
             <h1>Decoder</h1>
-            <div>
+            <div id="decoder-input-area">
                 <label for="decoder-input">Cypher text:</label>
                 <textarea id="decoder-input"></textarea>
             </div>
-            <div>
-                <div>Output text:</div>
+            <div id="decoder-output-area">
+                <label for="decoder-output">Output text:</label>
                 <div id="decoder-output"></div>
             </div>
         </div>
