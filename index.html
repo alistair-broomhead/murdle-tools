@@ -9,14 +9,17 @@
                 #decoder-input-area {
                     display: flex;
                     label {
-                        width: 20rem;
+                        flex: 1;
+                        display: contents;
                     }
                     #decoder-input {            
-                        flex-basis: max-content;
+                        flex: 2;
+                        height: 1.3rem;
                         resize: none;
                         width: stretch;
                         wrap: off;
                         overflow: auto;
+                        font-family: monospace;
                     }
                 }
                 #decoder-output-area {
@@ -27,6 +30,10 @@
                         th, td {
                             outline-width: thin;
                             outline-style: solid;
+                        }
+
+                        td:not(:first-child) {
+                            font-family: monospace;
                         }
                     }
                 }
@@ -41,7 +48,7 @@
                 <textarea id="decoder-input"></textarea>
             </div>
             <div id="decoder-output-area">
-                <label for="decoder-output">Output text:</label>
+                <div>Output text:</div>
                 <div id="decoder-output"></div>
             </div>
         </div>
